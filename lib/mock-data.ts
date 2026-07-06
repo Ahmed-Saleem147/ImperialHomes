@@ -1,3 +1,26 @@
+export type Notification = {
+  id: number;
+  type: "late" | "absent" | "leave_approved" | "leave_denied" | "leave_request" | "shift" | "info";
+  title: string;
+  message: string;
+  time: string;
+  read: boolean;
+  for: "management" | "staff" | "both";
+};
+
+export const notifications: Notification[] = [
+  { id: 1, type: "leave_request", title: "New Leave Request", message: "Adwoa Boahene has submitted a sick leave request for 2–3 Jul.", time: "2 hours ago", read: false, for: "management" },
+  { id: 2, type: "absent", title: "Absence Alert", message: "Efua Asiedu has not clocked in today. No leave on record.", time: "3 hours ago", read: false, for: "management" },
+  { id: 3, type: "late", title: "Late Arrivals", message: "Yaw Osei and Kwabena Sarpong arrived after 8:30 AM today.", time: "4 hours ago", read: false, for: "management" },
+  { id: 4, type: "leave_request", title: "New Leave Request", message: "Kojo Frimpong has requested annual leave for 10–14 Jul.", time: "Yesterday", read: true, for: "management" },
+  { id: 5, type: "info", title: "Weekly Report Ready", message: "Attendance report for the week of 30 Jun is available.", time: "Yesterday", read: true, for: "management" },
+  { id: 6, type: "shift", title: "Shift Reminder", message: "Morning shift starts at 8:00 AM tomorrow. Be on time.", time: "Yesterday", read: true, for: "management" },
+  { id: 7, type: "late", title: "You Were Marked Late", message: "You clocked in at 9:05 AM on 1 Jul. Standard time is 8:00 AM.", time: "Yesterday", read: false, for: "staff" },
+  { id: 8, type: "leave_approved", title: "Leave Approved", message: "Your emergency leave request for 5 Jul has been approved by HR.", time: "2 days ago", read: false, for: "staff" },
+  { id: 9, type: "shift", title: "Shift Update", message: "Your shift for next week remains Morning Shift (8:00 AM – 5:00 PM).", time: "3 days ago", read: true, for: "staff" },
+  { id: 10, type: "info", title: "Attendance Summary", message: "Your attendance rate this month is 94%. Keep it up!", time: "4 days ago", read: true, for: "staff" },
+];
+
 export const departments = [
   { id: 1, name: "Sales & Marketing", head: "Kofi Boateng", staff_count: 12, present: 10, late: 1, absent: 1 },
   { id: 2, name: "Finance & Accounts", head: "Akosua Darko", staff_count: 6, present: 6, late: 0, absent: 0 },

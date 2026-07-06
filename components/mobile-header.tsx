@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LogOut } from "lucide-react";
+import NotificationBell from "@/components/notification-bell";
 
 export default function MobileHeader({ role }: { role: "management" | "staff" }) {
   return (
@@ -9,16 +10,10 @@ export default function MobileHeader({ role }: { role: "management" | "staff" })
       style={{ background: "#1A2744", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
     >
       <div className="rounded-lg px-2.5 py-1.5" style={{ background: "rgba(255,255,255,0.96)" }}>
-        <Image
-          src="/imperialhomesgh_logo.jpg"
-          alt="Imperial Homes"
-          width={110}
-          height={36}
-          className="object-contain"
-          priority
-        />
+        <Image src="/imperialhomesgh_logo.jpg" alt="Imperial Homes" width={110} height={36} className="object-contain" priority />
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
+        <NotificationBell role={role} />
         <span
           className="text-xs font-semibold px-2.5 py-1 rounded-md"
           style={{

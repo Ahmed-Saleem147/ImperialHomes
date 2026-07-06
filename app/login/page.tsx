@@ -1,29 +1,81 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+
+// Management-level emails — in production this comes from Supabase user roles
+const MANAGEMENT_EMAILS = new Set([
+  "k.asante@imperialhomesgh.com",       // CEO
+  "a.mensah@imperialhomesgh.com",        // HR Manager
+  "k.boateng@imperialhomesgh.com",       // Sales Director
+  "a.darko@imperialhomesgh.com",         // Finance Manager
+  "y.osei@imperialhomesgh.com",          // Construction Manager
+  "a.adjei@imperialhomesgh.com",         // Marketing Lead
+  "k.amponsah@imperialhomesgh.com",      // IT Manager
+  "e.asiedu@imperialhomesgh.com",        // Legal Counsel
+  "n.acheampong@imperialhomesgh.com",    // Operations Manager
+]);
+
+// All valid staff emails
+const ALL_EMAILS = new Set([
+  ...MANAGEMENT_EMAILS,
+  "a.boahene@imperialhomesgh.com",
+  "k.frimpong@imperialhomesgh.com",
+  "a.owusu@imperialhomesgh.com",
+  "k.sarpong@imperialhomesgh.com",
+  "e.quaye@imperialhomesgh.com",
+  "f.aidoo@imperialhomesgh.com",
+  "m.serwaa@imperialhomesgh.com",
+  "k.annan@imperialhomesgh.com",
+  "a.bonsu@imperialhomesgh.com",
+]);
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Please enter your email and password.");
+      return;
+    }
+
+    if (!ALL_EMAILS.has(email.toLowerCase().trim())) {
+      setError("Email not recognised. Check with IT Support.");
+      return;
+    }
+
+    if (password.length < 4) {
+      setError("Incorrect password.");
+      return;
+    }
+
+    setLoading(true);
+
+    // Simulate a brief auth delay, then redirect based on role
+    setTimeout(() => {
+      if (MANAGEMENT_EMAILS.has(email.toLowerCase().trim())) {
+        router.push("/management");
+      } else {
+        router.push("/staff");
+      }
+    }, 800);
+  }
 
   return (
     <div className="min-h-screen flex" style={{ background: "linear-gradient(135deg, #1A2744 0%, #243256 60%, #1A2744 100%)" }}>
       {/* Left panel — branding */}
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-14">
-        {/* Logo pill */}
-        <div
-          className="inline-flex rounded-xl px-5 py-3 shadow-lg"
-          style={{ background: "rgba(255,255,255,0.97)", width: "fit-content" }}
-        >
-          <Image
-            src="/imperialhomesgh_logo.jpg"
-            alt="Imperial Homes Ghana"
-            width={160}
-            height={55}
-            className="object-contain"
-            priority
-          />
+        <div className="inline-flex rounded-xl px-5 py-3 shadow-lg" style={{ background: "rgba(255,255,255,0.97)", width: "fit-content" }}>
+          <Image src="/imperialhomesgh_logo.jpg" alt="Imperial Homes Ghana" width={160} height={55} className="object-contain" priority />
         </div>
 
         <div>
@@ -49,29 +101,24 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
-          © 2026 Imperial Homes Limited · A Signature Of Luxury
-        </p>
+        <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>© 2026 Imperial Homes Limited · A Signature Of Luxury</p>
       </div>
 
       {/* Right panel — login form */}
       <div className="flex-1 flex items-center justify-center p-6 lg:p-14">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
-          <div className="lg:hidden flex justify-center mb-10">
+          <div className="lg:hidden flex justify-center mb-8">
             <div className="rounded-xl px-5 py-3 shadow-lg" style={{ background: "rgba(255,255,255,0.97)" }}>
-              <Image
-                src="/imperialhomesgh_logo.jpg"
-                alt="Imperial Homes Ghana"
-                width={140}
-                height={48}
-                className="object-contain"
-                priority
-              />
+              <Image src="/imperialhomesgh_logo.jpg" alt="Imperial Homes Ghana" width={140} height={48} className="object-contain" priority />
             </div>
           </div>
 
-          <div className="rounded-2xl p-8 shadow-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(20px)" }}>
+          <form
+            onSubmit={handleLogin}
+            className="rounded-2xl p-8 shadow-2xl"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(20px)" }}
+          >
             <h2 className="text-2xl font-bold text-white mb-1">Welcome back</h2>
             <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>Sign in to the Attendance Portal</p>
 
@@ -81,9 +128,10 @@ export default function LoginPage() {
                 <input
                   type="email"
                   placeholder="yourname@imperialhomesgh.com"
-                  defaultValue="a.mensah@imperialhomesgh.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-white/30 outline-none"
-                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}
+                  style={{ background: "rgba(255,255,255,0.08)", border: `1px solid ${error ? "rgba(239,68,68,0.5)" : "rgba(255,255,255,0.15)"}` }}
                 />
               </div>
               <div>
@@ -91,9 +139,11 @@ export default function LoginPage() {
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                    defaultValue="••••••••"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg text-sm text-white outline-none"
-                    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}
+                    style={{ background: "rgba(255,255,255,0.08)", border: `1px solid ${error ? "rgba(239,68,68,0.5)" : "rgba(255,255,255,0.15)"}` }}
                   />
                   <button
                     type="button"
@@ -107,26 +157,53 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="mt-8 space-y-3">
-              <Link
-                href="/management"
-                className="flex items-center justify-center w-full py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ background: "#C4A35A" }}
-              >
-                Sign in as Management / HR
-              </Link>
-              <Link
-                href="/staff"
-                className="flex items-center justify-center w-full py-3 rounded-lg text-sm font-semibold transition-opacity hover:opacity-80"
-                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)" }}
-              >
-                Sign in as Staff Member
-              </Link>
-            </div>
+            {/* Error message */}
+            {error && (
+              <p className="mt-3 text-sm text-red-400 flex items-center gap-1.5">
+                <span>⚠</span> {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="mt-8 flex items-center justify-center w-full py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+              style={{ background: "#C4A35A" }}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Signing in...
+                </>
+              ) : "Sign In"}
+            </button>
 
             <p className="text-center text-xs mt-6" style={{ color: "rgba(255,255,255,0.3)" }}>
               Forgot your password? Contact IT Support · ext. 007
             </p>
+          </form>
+
+          {/* Demo hint */}
+          <div className="mt-4 rounded-xl p-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+            <p className="text-xs font-semibold mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>DEMO CREDENTIALS</p>
+            <div className="space-y-1.5">
+              <button
+                type="button"
+                onClick={() => { setEmail("a.mensah@imperialhomesgh.com"); setPassword("password123"); setError(""); }}
+                className="w-full text-left text-xs px-3 py-2 rounded-lg transition-colors hover:bg-white/5"
+                style={{ color: "rgba(255,255,255,0.45)" }}
+              >
+                <span style={{ color: "#C4A35A" }}>Management:</span> a.mensah@imperialhomesgh.com
+              </button>
+              <button
+                type="button"
+                onClick={() => { setEmail("k.frimpong@imperialhomesgh.com"); setPassword("password123"); setError(""); }}
+                className="w-full text-left text-xs px-3 py-2 rounded-lg transition-colors hover:bg-white/5"
+                style={{ color: "rgba(255,255,255,0.45)" }}
+              >
+                <span style={{ color: "rgba(255,255,255,0.6)" }}>Staff:</span> k.frimpong@imperialhomesgh.com
+              </button>
+            </div>
           </div>
         </div>
       </div>
