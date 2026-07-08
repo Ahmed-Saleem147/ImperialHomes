@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { notifications as initial, type Notification } from "@/lib/mock-data";
 import { Clock, UserX, CalendarCheck, CalendarX, CalendarClock, Info, CheckCheck } from "lucide-react";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 const iconMap: Record<Notification["type"], React.ElementType> = {
   late: Clock, absent: UserX, leave_approved: CalendarCheck,
@@ -31,7 +31,7 @@ export default function StaffNotificationsPage() {
 
   return (
     <>
-      <MobileHeader role="staff" />
+      <TopBar role="staff" name="Kofi Boateng" initials="KB" />
       <div className="p-4 lg:p-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
@@ -89,3 +89,4 @@ export default function StaffNotificationsPage() {
     </>
   );
 }
+

@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, CalendarX2, CalendarDays, LogOut } from "lucide-react";
-import NotificationBell from "@/components/notification-bell";
 
 const navItems = [
   { label: "My Attendance", href: "/staff", icon: LayoutDashboard },
@@ -67,7 +66,6 @@ export default function StaffSidebar() {
             <p className="text-white text-sm font-medium truncate">Kofi Boateng</p>
             <p className="text-xs truncate" style={{ color: "rgba(255,255,255,0.4)" }}>Sales Director · IH003</p>
           </div>
-          <NotificationBell role="staff" />
         </div>
         <Link
           href="/login"

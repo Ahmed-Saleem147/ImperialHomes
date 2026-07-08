@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import { attendanceRecords } from "@/lib/mock-data";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, { bg: string; color: string; label: string }> = {
@@ -33,7 +33,7 @@ export default function RecordsPage() {
 
   return (
     <>
-      <MobileHeader role="management" />
+      <TopBar role="management" name="Abena Mensah" initials="AM" />
       <div className="p-4 lg:p-8">
         <div className="mb-6">
           <h1 className="text-2xl lg:text-3xl font-bold" style={{ color: "#1A2744" }}>Records</h1>
@@ -113,3 +113,4 @@ export default function RecordsPage() {
     </>
   );
 }
+

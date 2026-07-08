@@ -6,7 +6,6 @@ import {
   Building2, Users, FileText,
   CalendarDays, LogOut, CalendarX2, LayoutDashboard,
 } from "lucide-react";
-import NotificationBell from "@/components/notification-bell";
 
 const navItems = [
   { label: "Analytics", href: "/management", icon: LayoutDashboard },
@@ -80,7 +79,6 @@ export default function ManagementSidebar() {
             <p className="text-white text-sm font-medium truncate">Abena Mensah</p>
             <p className="text-xs truncate" style={{ color: "rgba(255,255,255,0.4)" }}>a.mensah@imperialh...</p>
           </div>
-          <NotificationBell role="management" />
         </div>
         <Link
           href="/login"

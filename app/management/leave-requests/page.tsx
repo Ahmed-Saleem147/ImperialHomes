@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { leaveRequests } from "@/lib/mock-data";
 import { Check, X } from "lucide-react";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 type Leave = typeof leaveRequests[number] & { status: string };
 
@@ -25,7 +25,7 @@ export default function LeaveRequestsPage() {
 
   return (
     <>
-      <MobileHeader role="management" />
+      <TopBar role="management" name="Abena Mensah" initials="AM" />
       <div className="p-4 lg:p-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
@@ -51,7 +51,7 @@ export default function LeaveRequestsPage() {
                     <p className="font-semibold text-sm" style={{ color: "#1A2744" }}>{req.staff_name}</p>
                     <StatusBadge status={req.status} />
                   </div>
-                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>{req.department} · {req.staff_id}</p>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>{req.department} Â· {req.staff_id}</p>
                 </div>
               </div>
 
@@ -62,7 +62,7 @@ export default function LeaveRequestsPage() {
                 </div>
                 <div className="rounded-lg p-2.5" style={{ background: "#F9F8F5" }}>
                   <p className="text-xs font-semibold tracking-wider uppercase mb-1" style={{ color: "#9CA3AF" }}>Period</p>
-                  <p className="text-xs font-semibold" style={{ color: "#1A2744" }}>{req.from} → {req.to}</p>
+                  <p className="text-xs font-semibold" style={{ color: "#1A2744" }}>{req.from} â†’ {req.to}</p>
                   <p className="text-xs" style={{ color: "#9CA3AF" }}>{req.days} day{req.days > 1 ? "s" : ""}</p>
                 </div>
                 <div className="rounded-lg p-2.5 col-span-2 sm:col-span-1" style={{ background: "#F9F8F5" }}>
@@ -94,3 +94,4 @@ export default function LeaveRequestsPage() {
     </>
   );
 }
+

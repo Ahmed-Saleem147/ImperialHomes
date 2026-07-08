@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { Search, Plus, Mail, Phone } from "lucide-react";
 import { staffList } from "@/lib/mock-data";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 export default function StaffPage() {
   const [query, setQuery] = useState("");
@@ -14,7 +14,7 @@ export default function StaffPage() {
 
   return (
     <>
-      <MobileHeader role="management" />
+      <TopBar role="management" name="Abena Mensah" initials="AM" />
       <div className="p-4 lg:p-8">
         <div className="mb-6 flex items-start justify-between gap-3">
           <div>
@@ -108,3 +108,4 @@ export default function StaffPage() {
     </>
   );
 }
+

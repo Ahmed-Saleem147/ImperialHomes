@@ -1,6 +1,6 @@
-import { attendanceRecords } from "@/lib/mock-data";
+﻿import { attendanceRecords } from "@/lib/mock-data";
 import { TrendingUp, Clock, UserX, CheckCircle2 } from "lucide-react";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 const myRecords = attendanceRecords.filter((r) => r.staff_id === "IH003");
 
@@ -24,7 +24,7 @@ export default function StaffDashboard() {
 
   return (
     <>
-      <MobileHeader role="staff" />
+      <TopBar role="staff" name="Kofi Boateng" initials="KB" />
       <div className="p-4 lg:p-8">
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-1">
@@ -33,7 +33,7 @@ export default function StaffDashboard() {
             </div>
             <div>
               <h1 className="text-xl lg:text-2xl font-bold" style={{ color: "#1A2744" }}>Good morning, Kofi</h1>
-              <p className="text-xs lg:text-sm" style={{ color: "#6B7280" }}>Sales Director · IH003</p>
+              <p className="text-xs lg:text-sm" style={{ color: "#6B7280" }}>Sales Director Â· IH003</p>
             </div>
           </div>
           <p className="text-sm mt-2 ml-13" style={{ color: "#9CA3AF" }}>Wednesday, 2 July 2026</p>
@@ -46,7 +46,7 @@ export default function StaffDashboard() {
           <div>
             <p className="text-white font-bold text-sm lg:text-base">Clocked in today</p>
             <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
-              8:12:34 AM · ZKTeco · <span style={{ color: "#86EFAC" }}>Present</span>
+              8:12:34 AM Â· ZKTeco Â· <span style={{ color: "#86EFAC" }}>Present</span>
             </p>
           </div>
         </div>
@@ -109,3 +109,4 @@ export default function StaffDashboard() {
     </>
   );
 }
+

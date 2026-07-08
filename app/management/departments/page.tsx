@@ -1,11 +1,11 @@
-import { departments } from "@/lib/mock-data";
+﻿import { departments } from "@/lib/mock-data";
 import { Building2, Users } from "lucide-react";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 export default function DepartmentsPage() {
   return (
     <>
-      <MobileHeader role="management" />
+      <TopBar role="management" name="Abena Mensah" initials="AM" />
       <div className="p-4 lg:p-8">
         <div className="mb-6">
           <h1 className="text-2xl lg:text-3xl font-bold" style={{ color: "#1A2744" }}>Departments</h1>
@@ -57,3 +57,4 @@ export default function DepartmentsPage() {
     </>
   );
 }
+

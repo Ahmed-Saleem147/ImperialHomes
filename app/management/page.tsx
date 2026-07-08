@@ -1,6 +1,6 @@
-import { departments, weeklyStats, attendanceRecords } from "@/lib/mock-data";
+﻿import { departments, weeklyStats, attendanceRecords } from "@/lib/mock-data";
 import { Users, TrendingUp, Clock, UserX, Building2 } from "lucide-react";
-import MobileHeader from "@/components/mobile-header";
+import TopBar from "@/components/top-bar";
 
 function StatCard({ label, value, sub, icon: Icon, color }: { label: string; value: number | string; sub: string; icon: React.ElementType; color: string }) {
   return (
@@ -28,7 +28,7 @@ export default function AnalyticsPage() {
 
   return (
     <>
-      <MobileHeader role="management" />
+      <TopBar role="management" name="Abena Mensah" initials="AM" />
       <div className="p-4 lg:p-8">
         <div className="mb-6">
           <h1 className="text-2xl lg:text-3xl font-bold" style={{ color: "#1A2744" }}>Analytics</h1>
@@ -152,3 +152,4 @@ export default function AnalyticsPage() {
     </>
   );
 }
+
